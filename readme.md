@@ -1,8 +1,6 @@
 ```
+$ python3 main.py
 ? Enter Supervisor Name  Niraj Maharjan
-Niraj Maharjan
-Mode: development
-EMPLOYEE_DIRECTORY_ENDPOINT: https://api.bamboohr.com/api/gateway.php/logpoint/v1/employees/directory
 Answer: Niraj Maharjan
 Leave history from 2024-04-01 to 2024-04-30:
  
