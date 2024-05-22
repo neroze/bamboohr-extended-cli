@@ -54,35 +54,43 @@ def employeeLeave(employee_id, employee_name, start_date, end_date):
             'Sick Leave': [],
             'Substitute Leave': []
         }
-        total_leave = 0
 
         for request in leave_requests:
             reason = request['type']['name']
             allStatus = request['status']
-
+            # print(request);
             leave_details = {
                 'status': allStatus.get('status'),
                 'start': request['start'],
                 'end': request['end'],
+                'total_leave_days': request['amount']['amount'],
                 'approved': allStatus.get('lastChanged')
             }
             leave_types[reason].append(leave_details)  
 
         print(f' \n {Back.CYAN} -----------------{Fore.WHITE}{employee_name}---------------------- {Style.RESET_ALL}\n')
-        total_leave = printLeave(leave_types, total_leave)
+        total_leave = printLeave(leave_types)
         print(f'{Back.WHITE} total_leave : {Fore.MAGENTA}{total_leave} {Style.RESET_ALL}')
-        total_leave = 0
+        
 
     else:
         print(f"Employee: {employee_name}, No leave requests found for the specified period.")
 
-def printLeave(leaves, total_leave):
+def printLeave(leaves):
+    
     for leave_type, leave_values in leaves.items():
-        leave_count = len(leave_values)
-        total_leave += leave_count
-        print(f'type:{Fore.MAGENTA} {leave_type} {Style.RESET_ALL} - {Fore.RED}({leave_count}){Style.RESET_ALL}')
+        total_leave = 0
+        # leave_count = len(leave_values)
+        messages = []
         for detail in leave_values:
-            print(f"Approved Date: {detail.get('approved')}, Start: {detail.get('start')}, End: {detail.get('end')} Status: {detail.get('status')}")
+            total_leave += float(detail.get('total_leave_days'))
+            messages.append(f" - Approved Date: {detail.get('approved')}, Start: {detail.get('start')}, End: {detail.get('end')} Status: {detail.get('status')}")
+        
+        print('------------------------------------')
+        print(f'\n type:{Fore.MAGENTA} {leave_type} {Style.RESET_ALL} - {Fore.RED}({total_leave}){Style.RESET_ALL}')
+        print('------------------------------------')
+        print('\n'.join(map(str, messages)))
+        
     return total_leave
 
 def all_leaves(supervisor):
