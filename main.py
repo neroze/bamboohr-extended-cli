@@ -26,7 +26,6 @@ def promptName():
     ]
 
     answers = prompt(questions)
-    print(answers.get('supervisor'))  # use the answers as input for your app
     return answers.get('supervisor')
 
 def main():

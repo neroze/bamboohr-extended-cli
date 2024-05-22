@@ -59,9 +59,12 @@ def employeeLeave(employee_id, employee_name, start_date, end_date):
         for request in leave_requests:
             reason = request['type']['name']
             allStatus = request['status']
+
             leave_details = {
                 'status': allStatus.get('status'),
-                'date': allStatus.get('lastChanged')
+                'start': request['start'],
+                'end': request['end'],
+                'approved': allStatus.get('lastChanged')
             }
             leave_types[reason].append(leave_details)  
 
@@ -79,7 +82,7 @@ def printLeave(leaves, total_leave):
         total_leave += leave_count
         print(f'type:{Fore.MAGENTA} {leave_type} {Style.RESET_ALL} - {Fore.RED}({leave_count}){Style.RESET_ALL}')
         for detail in leave_values:
-            print(f" Date: {detail.get('date')}, Status: {detail.get('status')}")
+            print(f"Approved Date: {detail.get('approved')}, Start: {detail.get('start')}, End: {detail.get('end')} Status: {detail.get('status')}")
     return total_leave
 
 def all_leaves(supervisor):
