@@ -68,35 +68,37 @@ def employeeLeave(employee_id, employee_name, start_date, end_date):
             }
             leave_types[reason].append(leave_details)  
 
-        print(f' \n {Back.CYAN} -----------------{Fore.WHITE}{employee_name}---------------------- {Style.RESET_ALL}\n')
+        print(f' \n {Back.CYAN} -----------------{Fore.WHITE}{employee_name}---------------------- {Style.RESET_ALL}')
         total_leave = printLeave(leave_types)
-        print(f'{Back.WHITE} total_leave : {Fore.MAGENTA}{total_leave} {Style.RESET_ALL}')
+        print('\n------------------------------------')
+        print(f'{Back.WHITE} All total leaves : {Fore.MAGENTA}{total_leave} {Style.RESET_ALL}')
+        print('------------------------------------ \n')
         
 
     else:
         print(f"Employee: {employee_name}, No leave requests found for the specified period.")
 
 def printLeave(leaves):
-    
+    all_totall_leaves = 0
     for leave_type, leave_values in leaves.items():
         total_leave = 0
-        # leave_count = len(leave_values)
         messages = []
         for detail in leave_values:
             total_leave += float(detail.get('total_leave_days'))
-            messages.append(f" - Approved Date: {detail.get('approved')}, Start: {detail.get('start')}, End: {detail.get('end')} Status: {detail.get('status')}")
+            if total_leave > 0:
+                messages.append(f" - Approved Date: {detail.get('approved')}, Start: {detail.get('start')}, End: {detail.get('end')} Status: {detail.get('status')}")
         
-        print('\n ------------------------------------')
-        print(f'type:{Fore.MAGENTA} {leave_type} {Style.RESET_ALL} - {Fore.RED}({total_leave}){Style.RESET_ALL}')
-        print('------------------------------------')
-        print('\n'.join(map(str, messages)))
+        all_totall_leaves += total_leave
+        if total_leave > 0:
+            print('\n------------------------------------')
+            print(f'type:{Fore.MAGENTA} {leave_type} {Style.RESET_ALL} - {Fore.RED}({total_leave}){Style.RESET_ALL}')
+            print('------------------------------------')
+            print('\n'.join(map(str, messages)))
         
-    return total_leave
+    return all_totall_leaves
 
 def all_leaves(supervisor):
-    
     employees = fetch_employee_directory()
- 
     if not employees:
         print('No employees found.')
         return
