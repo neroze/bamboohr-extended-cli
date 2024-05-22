@@ -86,8 +86,8 @@ def printLeave(leaves):
             total_leave += float(detail.get('total_leave_days'))
             messages.append(f" - Approved Date: {detail.get('approved')}, Start: {detail.get('start')}, End: {detail.get('end')} Status: {detail.get('status')}")
         
-        print('------------------------------------')
-        print(f'\n type:{Fore.MAGENTA} {leave_type} {Style.RESET_ALL} - {Fore.RED}({total_leave}){Style.RESET_ALL}')
+        print('\n ------------------------------------')
+        print(f'type:{Fore.MAGENTA} {leave_type} {Style.RESET_ALL} - {Fore.RED}({total_leave}){Style.RESET_ALL}')
         print('------------------------------------')
         print('\n'.join(map(str, messages)))
         

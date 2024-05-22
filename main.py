@@ -58,12 +58,9 @@ def main():
     load_environment(mode)
 
     # Get the value of an environment variable
-    api_key = os.getenv('API_KEY')
-    aa = os.getenv('EMPLOYEE_DIRECTORY_ENDPOINT')
 
     # Use the environment variable values in your code
     print("Mode:", mode)
-    print("EMPLOYEE_DIRECTORY_ENDPOINT:", aa)
     print("Answer:", supervisor)
     all_leaves(supervisor)
 
